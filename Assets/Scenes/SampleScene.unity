@@ -158,7 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CelestialBody
   orbitCenter: {fileID: 465483550}
   orbitRadius: 5
-  orbitSpeedDegPerSec: 20
+  orbitSpeedDegPerSec: 2
   startAngleDeg: 0
   radiusX: 10
   radiusZ: 10
@@ -395,7 +395,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b15e6d62c28ff46aaf670503ab9ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetData
-  resources: 0
   factories: 0
   robots: 0
   relays: 0
@@ -413,6 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CelestialBodySelectionDisplay
   outlineMaterial: {fileID: 2100000, guid: c3ce9c3a2239ff84590bef1018b99fbc, type: 2}
+  outlineMaterialReference: {fileID: 0}
 --- !u!114 &56798685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,7 +523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CelestialBody
   orbitCenter: {fileID: 558169081}
   orbitRadius: 6
-  orbitSpeedDegPerSec: 6
+  orbitSpeedDegPerSec: 2
   startAngleDeg: 90
   radiusX: 100
   radiusZ: 70
@@ -745,7 +745,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b15e6d62c28ff46aaf670503ab9ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetData
-  resources: 0
   factories: 0
   robots: 0
   relays: 0
@@ -763,6 +762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CelestialBodySelectionDisplay
   outlineMaterial: {fileID: 2100000, guid: c3ce9c3a2239ff84590bef1018b99fbc, type: 2}
+  outlineMaterialReference: {fileID: 0}
 --- !u!114 &254107910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1106,7 +1106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CelestialBody
   orbitCenter: {fileID: 558169081}
   orbitRadius: 5
-  orbitSpeedDegPerSec: 5
+  orbitSpeedDegPerSec: 2
   startAngleDeg: 0
   radiusX: 60
   radiusZ: 60
@@ -1364,7 +1364,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b15e6d62c28ff46aaf670503ab9ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetData
-  resources: 0
   factories: 0
   robots: 0
   relays: 0
@@ -1382,6 +1381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CelestialBodySelectionDisplay
   outlineMaterial: {fileID: 2100000, guid: c3ce9c3a2239ff84590bef1018b99fbc, type: 2}
+  outlineMaterialReference: {fileID: 0}
 --- !u!114 &465483556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1412,6 +1412,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 490786800}
+  - component: {fileID: 490786801}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -1434,6 +1435,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 207185680}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &490786801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490786799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe60f5158b3812f42b8cf9c789137198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SharedResourcesManager
+  resources: 0
 --- !u!1 &492296899
 GameObject:
   m_ObjectHideFlags: 0
@@ -1503,7 +1517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CelestialBody
   orbitCenter: {fileID: 558169081}
   orbitRadius: 5
-  orbitSpeedDegPerSec: 4
+  orbitSpeedDegPerSec: 2
   startAngleDeg: -45
   radiusX: 200
   radiusZ: 200
@@ -1710,7 +1724,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b15e6d62c28ff46aaf670503ab9ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetData
-  resources: 0
   factories: 0
   robots: 0
   relays: 0
@@ -1728,6 +1741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CelestialBodySelectionDisplay
   outlineMaterial: {fileID: 2100000, guid: c3ce9c3a2239ff84590bef1018b99fbc, type: 2}
+  outlineMaterialReference: {fileID: 0}
 --- !u!114 &492296909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2114,7 +2128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CelestialBody
   orbitCenter: {fileID: 492296900}
   orbitRadius: 5
-  orbitSpeedDegPerSec: 4
+  orbitSpeedDegPerSec: 2
   startAngleDeg: 0
   radiusX: 20
   radiusZ: 15
@@ -2321,7 +2335,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b15e6d62c28ff46aaf670503ab9ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetData
-  resources: 0
   factories: 0
   robots: 0
   relays: 0
@@ -2339,6 +2352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CelestialBodySelectionDisplay
   outlineMaterial: {fileID: 2100000, guid: c3ce9c3a2239ff84590bef1018b99fbc, type: 2}
+  outlineMaterialReference: {fileID: 0}
 --- !u!114 &992536583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2429,7 +2443,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CelestialBody
   orbitCenter: {fileID: 492296900}
   orbitRadius: 5
-  orbitSpeedDegPerSec: 4
+  orbitSpeedDegPerSec: 2
   startAngleDeg: 180
   radiusX: 20
   radiusZ: 15
@@ -2636,7 +2650,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b15e6d62c28ff46aaf670503ab9ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetData
-  resources: 0
   factories: 0
   robots: 0
   relays: 0
@@ -2654,6 +2667,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CelestialBodySelectionDisplay
   outlineMaterial: {fileID: 2100000, guid: c3ce9c3a2239ff84590bef1018b99fbc, type: 2}
+  outlineMaterialReference: {fileID: 0}
 --- !u!114 &1080255349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2728,7 +2742,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b15e6d62c28ff46aaf670503ab9ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetData
-  resources: 0
   factories: 0
   robots: 0
   relays: 0
@@ -2783,7 +2796,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CelestialBody
   orbitCenter: {fileID: 558169081}
   orbitRadius: 5
-  orbitSpeedDegPerSec: 5
+  orbitSpeedDegPerSec: 2
   startAngleDeg: 0
   radiusX: 30
   radiusZ: 30
@@ -2947,7 +2960,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  - {fileID: 2100000, guid: c3ce9c3a2239ff84590bef1018b99fbc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2992,6 +3004,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CelestialBodySelectionDisplay
   outlineMaterial: {fileID: 2100000, guid: c3ce9c3a2239ff84590bef1018b99fbc, type: 2}
+  outlineMaterialReference: {fileID: 0}
 --- !u!114 &1216896361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3067,7 +3080,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CelestialBody
   orbitCenter: {fileID: 558169081}
   orbitRadius: 5
-  orbitSpeedDegPerSec: 4
+  orbitSpeedDegPerSec: 2
   startAngleDeg: -45
   radiusX: 350
   radiusZ: 350
@@ -3289,7 +3302,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b15e6d62c28ff46aaf670503ab9ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetData
-  resources: 0
   factories: 0
   robots: 0
   relays: 0
@@ -3307,6 +3319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CelestialBodySelectionDisplay
   outlineMaterial: {fileID: 2100000, guid: c3ce9c3a2239ff84590bef1018b99fbc, type: 2}
+  outlineMaterialReference: {fileID: 0}
 --- !u!114 &1302119758
 MonoBehaviour:
   m_ObjectHideFlags: 0

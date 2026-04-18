@@ -23,7 +23,7 @@ public class PlanetManager : MonoBehaviour
 
     public void Update()
     {
-        if (_t <= simulationTime)
+        if (_t < simulationTime)
         {
             _t += Time.deltaTime;
             return;
@@ -33,20 +33,22 @@ public class PlanetManager : MonoBehaviour
         {
             UpdatePlanet(planet);
         }
+
+        _t = 0;
     }
 
     private void UpdatePlanet(PlanetData planet)
     {
-        IncreasePlanetResources(planet);
+        GenerateResources(planet);
     }
 
-    private void IncreasePlanetResources(PlanetData planet)
+    private void GenerateResources(PlanetData planet)
     {
-        planet.resources += CalculationTables.Instance.baseResourceGeneration * planet.factories;
+        SharedResourcesManager.Instance.resources += CalculationTables.Instance.GetBaseResourceGenerationValue(planet.factories);
     }
 
-    public float CalculateSignalDistance(PlanetData planet)
+    /*public float CalculateSignalDistance(PlanetData planet)
     {
         return planet.relays * CalculationTables.Instance.baseSignalStrength * CalculationTables.Instance.baseSignalStrengthMultiplier;
-    }
+    }*/
 }

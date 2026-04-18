@@ -7,7 +7,7 @@ public class CelestialBodySelectionDisplay : MonoBehaviour
 {
     private Interactable interactable;
     public Material outlineMaterial;
-    private Material outlineMaterialReference;
+    public Material outlineMaterialReference;
 
     private void Awake()
     {
@@ -33,6 +33,7 @@ public class CelestialBodySelectionDisplay : MonoBehaviour
             var tmp = renderer.materials.ToList();
             tmp.Add(outlineMaterial);
             renderer.materials = tmp.ToArray();
+            outlineMaterialReference = renderer.materials.Last();
         }
         SetOutlineState(false);
     }
@@ -41,5 +42,17 @@ public class CelestialBodySelectionDisplay : MonoBehaviour
     {
         if(outlineMaterialReference)
             outlineMaterialReference.SetInt("_Outline_Enabled", state ? 1 : 0);
+    }
+
+    [ContextMenu("Disable")]
+    private void SetOutlineTestD()
+    {
+        SetOutlineState(false);
+    }
+    
+    [ContextMenu("Enable")]
+    private void SetOutlineTestE()
+    {
+        SetOutlineState(true);
     }
 }

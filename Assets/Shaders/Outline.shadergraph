@@ -1551,7 +1551,12 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_PerRendererData": false,
-    "m_customAttributes": [],
+    "m_customAttributes": [
+        {
+            "name": "MyCustomAttribute",
+            "value": ""
+        }
+    ],
     "m_Value": true
 }
 
