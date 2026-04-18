@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!28 &2800000
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Planet04_Texture
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 4
+  m_Width: 50
+  m_Height: 1
+  m_CompleteImageSize: 200
+  m_MipsStripped: 0
+  m_TextureFormat: 4
+  m_MipCount: 1
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMipmapLimit: 1
+  m_MipmapLimitGroupName: 
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 0
+    m_WrapV: 0
+    m_WrapW: 0
+  m_LightmapFormat: 0
+  m_ColorSpace: 1
+  m_PlatformBlob: 
+  image data: 200
+  _typelessdata: 28cee0ff1f9dd2ff1776c2ff1155b4ff0c39a8ff08249bff04148eff020983ff010379ff000270ff010369ff010463ff01065bff010755ff01094fff020b49ff020d50ff010f61ff011173ff011388ff01169fff0019b8ff001cd2ff001fefff0020f9ff0020edff0020e0ff0020d6ff0020ccff0020c0ff0020b6ff0020abff0020a2ff002098ff002090ff002088ff00207fff002078ff001f75ff001f75ff001f75ff001f75ff001f75ff001f75ff001f75ff001f75ff001f75ff001f75ff001f75ff001f75ff
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 

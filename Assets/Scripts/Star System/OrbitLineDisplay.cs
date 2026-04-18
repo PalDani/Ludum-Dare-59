@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Numerics;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 [RequireComponent(typeof(LineRenderer))]
 public class OrbitLineDisplay : MonoBehaviour
@@ -11,29 +14,33 @@ public class OrbitLineDisplay : MonoBehaviour
     
     private LineRenderer lr;
     private CelestialBody body;
+    private Transform camera;
 
     void Awake()
     {
         lr = GetComponent<LineRenderer>();
         body =  GetComponent<CelestialBody>();
+        camera = Camera.main.transform;
     }
 
     void Start()
     {
-        InitLineRenderer();
+        UpdateLineRenderer();
         DrawOrbit();
     }
 
-    private void InitLineRenderer()
+    private void UpdateLineRenderer(float width = 0.1f)
     {
-        lr.endWidth = 0.1f;
-        lr.startWidth = 0.1f;
+        lr.endWidth = width;
+        lr.startWidth = width;
     }
 
     private void Update()
     {
         if(isMoon)
             DrawOrbit();
+        
+        //UpdateLineWidth();
     }
 
     void DrawOrbit()
@@ -56,5 +63,13 @@ public class OrbitLineDisplay : MonoBehaviour
             Vector3 worldPos = body.orbitCenter.position + tilt * localPos;
             lr.SetPosition(i, worldPos);
         }
+    }
+
+    private void UpdateLineWidth()
+    {
+        float distance = Vector3.Distance(transform.position, camera.position);
+        float targetWidth = distance * 0.005f;
+        targetWidth = Mathf.Clamp(targetWidth, 0.1f, 0.5f);
+        UpdateLineRenderer(targetWidth);
     }
 }
