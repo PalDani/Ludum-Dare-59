@@ -74,7 +74,7 @@ public class PlanetManager : MonoBehaviour
     
     public bool CanBuildOribtalDataCenter(Planet planet)
     {
-        return sharedResourcesManager.Resources >= GetRequiredResourcesToBuildRelay(planet);
+        return sharedResourcesManager.Resources >= GetRequiredResourcesToBuildOrbitalDataCenter(planet);
     }
 
     public bool CanBeColonized(Planet planet)

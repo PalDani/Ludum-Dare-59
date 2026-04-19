@@ -47,7 +47,7 @@ public class TechUpgradeUIElement : MonoBehaviour, IPointerEnterHandler, IPointe
         TechUpgradesManager.Instance.ActivateUpgrade(techUpgrade);
         upgradeButton.image.color = Color.green;
         bought = true;
-        upgradeButton.interactable = false;
+        upgradeButton.enabled = false;
         upgradeButton.onClick.RemoveAllListeners();
         TechTreeUI.Instance.RefreshUI();
     }

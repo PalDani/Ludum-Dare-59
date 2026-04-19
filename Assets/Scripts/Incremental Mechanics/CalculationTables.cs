@@ -68,20 +68,17 @@ public class CalculationTables : MonoBehaviour
 
     public double GetBaseFactoryCost(int factories)
     {
-        factories = factories > 0 ? factories : 1;
-        return baseFactoryCost * baseFactoryCostMultiplier * factories;
+        return baseFactoryCost * Math.Pow(baseFactoryCostMultiplier, factories);
     }
 
     public double GetBaseRelayCost(int relays)
     {
-        relays = relays > 0 ? relays : 1;
-        return  baseRelayCost * relays * baseRelayCostMultiplier;
+        return baseRelayCost * Math.Pow(baseRelayCostMultiplier, relays);
     }
 
     public double GetOrbitalDataCenterCost(int obdcs)
     {
-        obdcs =  obdcs > 0 ? obdcs : 1;
-        return baseOrbitalDataCenterCost * obdcs * baseOrbitalDataCenterCostMultiplier;
+        return baseOrbitalDataCenterCost * Math.Pow(baseOrbitalDataCenterCostMultiplier, obdcs);
     }
 
     public double GetSignalStrength(Planet planet)
@@ -96,10 +93,15 @@ public class CalculationTables : MonoBehaviour
 
     public void RecalculateValues(TechUpgrade activatedUpgrade)
     {
-        baseResourceGeneration =  defaultBaseResourceGeneration;
-        baseResourceGenerationMultiplier =  defaultBaseResourceGenerationMultiplier;
+        baseResourceGeneration = defaultBaseResourceGeneration;
+        baseResourceGenerationMultiplier = defaultBaseResourceGenerationMultiplier;
+
+        baseFactoryCost = defaultFactoryCost;
+        baseFactoryCostMultiplier = defaultFactoryCostMultiplier;
+
         baseRelayCost = defaultBaseRelayCost;
         baseRelayCostMultiplier = defaultBaseRelayCostMultiplier;
+
         baseSignalStrength = defaultBaseSignalStrength;
         baseSignalStrengthMultiplier = defaultBaseSignalStrengthMultiplier;
         
@@ -117,7 +119,7 @@ public class CalculationTables : MonoBehaviour
                     baseFactoryCostMultiplier += upgrade.UpgradeValue;
                     break;
                 case TechUpgrade.Upgrade_Type.RelayCostMultiplier:
-                    baseRelayCost += upgrade.UpgradeValue;
+                    baseRelayCostMultiplier += upgrade.UpgradeValue;
                     break;
                 case TechUpgrade.Upgrade_Type.SignalStrengthMultiplier:
                     baseSignalStrengthMultiplier += upgrade.UpgradeValue;

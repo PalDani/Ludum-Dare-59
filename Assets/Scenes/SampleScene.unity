@@ -6952,11 +6952,11 @@ MonoBehaviour:
   baseResourceGeneration: 1
   baseResourceGenerationMultiplier: 1
   baseFactoryCost: 3
-  baseFactoryCostMultiplier: 1.100000023841858
+  baseFactoryCostMultiplier: 1.2
   baseRelayCost: 10
-  baseRelayCostMultiplier: 1.149999976158142
+  baseRelayCostMultiplier: 1.35
   baseOrbitalDataCenterCost: 500
-  baseOrbitalDataCenterCostMultiplier: 1.100000023841858
+  baseOrbitalDataCenterCostMultiplier: 1.5
   baseColonizationCost: 300
   baseColonizationCostDistanceMultiplier: 0.5
   baseSignalStrength: 1
@@ -18190,7 +18190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Scrollbar
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -22235,7 +22235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55ed9fdbf594f4db9421fcafc716717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TechUpgradeUIElement
-  techUpgrade: {fileID: 11400000, guid: a9e2b1e186cc92442958789353925f76, type: 2}
+  techUpgrade: {fileID: 11400000, guid: 8ac50773c4e8c8649b3d1ac27270496c, type: 2}
   upgradeButton: {fileID: 2009104843}
   upgradeButtonText: {fileID: 1887768187}
 --- !u!114 &2009104843
@@ -23196,7 +23196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Scrollbar
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -23824,6 +23824,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SignalManager
   planetManager: {fileID: 796599127}
   techUpgradesManager: {fileID: 490786802}
+  signals: []
   orbitalDataCenters: []
 --- !u!114 &2104806833
 MonoBehaviour:
