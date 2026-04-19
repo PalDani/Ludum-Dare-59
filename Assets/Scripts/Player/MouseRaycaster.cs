@@ -75,9 +75,14 @@ public class MouseRaycaster : MonoBehaviour
 
     public void Clicked(InputAction.CallbackContext context)
     {
+        
         if(currentTarget == null)
+        {
+            AudioEffectPlayer.Instance.PlayClickEmpty();
             return;
+        }
         
         currentTarget.Interact();
+        AudioEffectPlayer.Instance.PlayClickObject();
     }
 }

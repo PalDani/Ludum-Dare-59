@@ -103,11 +103,6 @@ public class PlanetManager : MonoBehaviour
         return Vector3.Distance(p1.transform.position, p2.transform.position);
     }
 
-    /*public float CalculateSignalDistance(PlanetData planet)
-    {
-        return planet.relays * CalculationTables.Instance.baseSignalStrength * CalculationTables.Instance.baseSignalStrengthMultiplier;
-    }*/
-
     public float GetRequiredResourcesToColonize(Planet planet)
     {
         return calculationTables.GetColonizationCost(planet);

@@ -17,6 +17,7 @@ public class Planet : MonoBehaviour
 
     public int Factories => factories;
     public int Relays => relays;
+    public bool Colonized => colonized;
 
     private void Awake()
     {
@@ -44,7 +45,7 @@ public class Planet : MonoBehaviour
 
     public void ShowPlanetUI()
     {
-        if(IsPlanetInSignalRange() || starterPlanet)
+        if(colonized && IsPlanetInSignalRange() || starterPlanet)
             PlanetUI.Instance.Show(this);
         else if(!colonized)
         {
@@ -76,19 +77,31 @@ public class Planet : MonoBehaviour
     
     private void UpdateSignalStrengthDisplay()
     {
-        float scale = CalculationTables.Instance.GetSignalStrength(this);
-        
-        signalStrengthDisplay.transform.localScale = new Vector3(scale, scale, scale);
+        float signalRadius = CalculationTables.Instance.GetSignalStrength(this);
+        float targetWorldDiameter = signalRadius * 2f;
+
+        Transform displayTransform = signalStrengthDisplay.transform;
+        Transform parent = displayTransform.parent;
+
+        Vector3 parentLossyScale = parent != null ? parent.lossyScale : Vector3.one;
+
+        float localX = targetWorldDiameter / parentLossyScale.x;
+        float localZ = targetWorldDiameter / parentLossyScale.z;
+
+        displayTransform.localScale = new Vector3(localX, 1, localZ);
     }
 
     public bool IsPlanetInSignalRange()
     {
         foreach (var signal in SignalManager.Instance.Signals)
         {
-            if(signal.Value <= PlanetManager.Instance.GetDistanceBetweenPlanets(this, signal.Key))
-            {
+            if (signal.Value <= 0f)
+                continue;
+
+            float distance = PlanetManager.Instance.GetDistanceBetweenPlanets(this, signal.Key);
+
+            if (distance <= signal.Value)
                 return true;
-            }
         }
 
         return false;

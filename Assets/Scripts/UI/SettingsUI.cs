@@ -35,4 +35,9 @@ public class SettingsUI : MonoBehaviour
             planet.SetSignalDisplayState(showSignalStrength);
         }
     }
+
+    public void SetGameSpeed(int speed)
+    {
+        Time.timeScale = speed;
+    }
 }
