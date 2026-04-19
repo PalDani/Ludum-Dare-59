@@ -14,11 +14,13 @@ public class Planet : MonoBehaviour
     [SerializeField] private Interactable interactable;
     public OrbitalDataCenter dataCenter;
     public GameObject signalStrengthDisplay;
+    [SerializeField] private OrbitLineDisplay orbitLineDisplay;
 
     public int Factories => factories;
     public int Relays => relays;
     public bool Colonized => colonized;
     public bool IsStarterPlanet => starterPlanet;
+    public bool AllowedToBuildOnSurface => allowedToBuildOnSurface;
 
     private void Awake()
     {
@@ -73,12 +75,14 @@ public class Planet : MonoBehaviour
 
     public void BuildOrbitalDataCenter()
     {
-        
+        var obdcPrefab = Instantiate(PlanetManager.Instance.OrbitalDataCenterPrefab, PlanetManager.Instance.StarSystemRoot);
+        dataCenter = obdcPrefab.GetComponent<OrbitalDataCenter>();
+        dataCenter.Init(this);
     }
     
     private void UpdateSignalStrengthDisplay()
     {
-        float signalRadius = CalculationTables.Instance.GetSignalStrength(this);
+        float signalRadius = (float) Math.Round(CalculationTables.Instance.GetSignalStrength(this));
         float targetWorldDiameter = signalRadius * 2f;
 
         Transform displayTransform = signalStrengthDisplay.transform;
@@ -94,6 +98,9 @@ public class Planet : MonoBehaviour
 
     public bool IsPlanetInSignalRange()
     {
+        if (HasDataCenter())
+            return true;
+        
         foreach (var signal in SignalManager.Instance.Signals)
         {
             if (signal.Value <= 0f)
@@ -111,6 +118,12 @@ public class Planet : MonoBehaviour
     public void SetSignalDisplayState(bool state)
     {
         signalStrengthDisplay.SetActive(state);
+    }
+    
+
+    public void SetOrbitLineDisplayState(bool state)
+    {
+        orbitLineDisplay.SetLineState(state);
     }
     
 }

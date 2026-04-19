@@ -4,7 +4,8 @@ using UnityEngine;
 public class SharedResourcesManager : MonoBehaviour
 {
 
-    public float resources;
+    [SerializeField] private double resources;
+    public double Resources => resources;
     
     public static SharedResourcesManager Instance { get; private set; }
 
@@ -23,5 +24,25 @@ public class SharedResourcesManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void AddResource(double amount)
+    {
+        resources += amount;
+        
+        if (double.IsNaN(resources) || double.IsInfinity(resources))
+            resources = double.MaxValue;
+
+        resources = Math.Clamp(resources, 0.0, double.MaxValue);
+    }
+
+    public void RemoveResource(double amount)
+    {
+        resources -= amount;
+        
+        if (double.IsNaN(resources) || double.IsInfinity(resources))
+            resources = double.MaxValue;
+        
+        resources = Math.Clamp(resources, 0.0, double.MaxValue);
     }
 }

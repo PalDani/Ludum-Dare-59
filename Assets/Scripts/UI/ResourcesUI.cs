@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -24,6 +25,6 @@ public class ResourcesUI : MonoBehaviour
 
     private void UpdateUI()
     {
-        resourceText.text = $"Resources:\n{sharedResourcesManager.resources}";
+        resourceText.text = $"Resources:\n{Math.Round(sharedResourcesManager.Resources)}";
     }
 }

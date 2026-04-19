@@ -45,6 +45,9 @@ public class OrbitLineDisplay : MonoBehaviour
 
     void DrawOrbit()
     {
+        if(body.orbitCenter == null)
+            return;
+        
         lr.positionCount = segments + 1;
 
         Quaternion tilt = Quaternion.FromToRotation(Vector3.up, body.orbitAxis.normalized);
@@ -71,5 +74,10 @@ public class OrbitLineDisplay : MonoBehaviour
         float targetWidth = distance * 0.005f;
         targetWidth = Mathf.Clamp(targetWidth, 0.1f, 0.5f);
         UpdateLineRenderer(targetWidth);
+    }
+
+    public void SetLineState(bool state)
+    {
+        lr.enabled = state;
     }
 }

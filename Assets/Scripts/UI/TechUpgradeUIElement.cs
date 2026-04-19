@@ -31,7 +31,7 @@ public class TechUpgradeUIElement : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public bool CanBeBought()
     {
-        return SharedResourcesManager.Instance.resources >= techUpgrade.UpgradeCost;
+        return SharedResourcesManager.Instance.Resources >= techUpgrade.UpgradeCost;
     }
 
     public void Refresh()

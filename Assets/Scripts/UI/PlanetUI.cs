@@ -14,16 +14,19 @@ public class PlanetUI : MonoBehaviour
     
     [Header("Runtime references")]
     [SerializeField] private Planet planet;
+    public Planet CurrentPlanet => planet;
     
     
     [Header("Basic UI Elements")]
     [SerializeField] private TMP_Text title;
     [Header("Factory UI")]
+    [SerializeField] private GameObject factoryRoot;
     [SerializeField] private TMP_Text factoryText;
     [SerializeField] private Button factoryAddButton;
     [SerializeField] private TMP_Text factoryAddButtonText;
     
     [Header("Relay UI")]
+    [SerializeField] private GameObject relayRoot;
     [SerializeField] private TMP_Text relayText;
     [SerializeField] private Button relayAddButton;
     [SerializeField] private TMP_Text relayAddButtonText;
@@ -40,7 +43,14 @@ public class PlanetUI : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        var p = planet;
         Hide();
+        planet = p;
+    }
+
+    private void Start()
+    {
+        //Show(planet);
     }
 
     private float _t = 0;
@@ -66,27 +76,44 @@ public class PlanetUI : MonoBehaviour
         InitUI();
         
         uiRoot.SetActive(true);
+        CameraMovement.Instance.FocusOnTarget(planet.transform);
     }
 
     public void Hide()
     {
         planet = null;
         uiRoot.SetActive(false);
+        if(CameraMovement.Instance != null)
+            CameraMovement.Instance.StopFocus();
     }
 
     private void InitUI()
     {
-        factoryAddButton.onClick.RemoveAllListeners();
-        factoryAddButton.onClick.AddListener(() =>
+        if (planet.AllowedToBuildOnSurface)
         {
-            planetManager.BuildFactory(planet);
-            RefreshUI();
-        });
+            factoryAddButton.onClick.RemoveAllListeners();
+            factoryAddButton.onClick.AddListener(() =>
+            {
+                planetManager.BuildFactory(planet);
+                RefreshUI();
+            });
+        }
+        else
+        {
+            factoryRoot.SetActive(false);
+        }
         
         relayAddButton.onClick.RemoveAllListeners();
         relayAddButton.onClick.AddListener(() =>
         {
             planetManager.BuildRelay(planet);
+            RefreshUI();
+        });
+
+        obdcBuildButton.onClick.RemoveAllListeners();
+        obdcBuildButton.onClick.AddListener(() =>
+        {
+            planetManager.BuildOrbitalDataCenter(planet);
             RefreshUI();
         });
         
@@ -96,19 +123,19 @@ public class PlanetUI : MonoBehaviour
     private void RefreshUI()
     {
         //Factory
-        factoryAddButtonText.text = $"+1 ({planetManager.GetRequiredResourcesToBuildFactory(planet)})";
+        factoryAddButtonText.text = $"+1 ({Math.Round(planetManager.GetRequiredResourcesToBuildFactory(planet))})";
         factoryAddButton.interactable = planetManager.CanBuildFactory(planet);
         factoryText.text = $"Factories: {planet.Factories}";
         
         //Relay
-        relayAddButtonText.text = $"+1 ({planetManager.GetRequiredResourcesToBuildRelay(planet)})";
+        relayAddButtonText.text = $"+1 ({Math.Round(planetManager.GetRequiredResourcesToBuildRelay(planet))})";
         relayAddButton.interactable = planetManager.CanBuildRelay(planet);
         relayText.text = $"Relays: {planet.Relays}";
         
         //OBDC
         if(!planet.HasDataCenter())
         {
-            obdcBuildButtonText.text = $"Build ({planetManager.GetRequiredResourcesToBuildOrbitalDataCenter(planet)})";
+            obdcBuildButtonText.text = $"Build ({Math.Round(planetManager.GetRequiredResourcesToBuildOrbitalDataCenter(planet))})";
             obdcBuildButton.interactable = planetManager.CanBuildOribtalDataCenter(planet);
         }
         else

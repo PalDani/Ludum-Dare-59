@@ -5,33 +5,33 @@ using UnityEngine;
 public class CalculationTables : MonoBehaviour
 {
     [Header("Resources")]
-    [SerializeField] private float baseResourceGeneration = 1;
-    [SerializeField] private float baseResourceGenerationMultiplier = 1;
-    private float defaultBaseResourceGeneration;
-    private float defaultBaseResourceGenerationMultiplier;
+    [SerializeField] private double baseResourceGeneration = 1;
+    [SerializeField] private double baseResourceGenerationMultiplier = 1;
+    private double defaultBaseResourceGeneration;
+    private double defaultBaseResourceGenerationMultiplier;
 
     [Header("Costs")]
-    [SerializeField] private float baseFactoryCost = 10;
-    [SerializeField] private float baseFactoryCostMultiplier = 1.15f;
-    [SerializeField] private float baseRelayCost = 10;
-    [SerializeField] private float baseRelayCostMultiplier = 1.15f;
-    [SerializeField] private float baseOrbitalDataCenterCost = 500;
-    [SerializeField] private float baseOrbitalDataCenterCostMultiplier = 1.1f;
-    [SerializeField] private float baseColonizationCost = 300;
-    [SerializeField] private float baseColonizationCostDistanceMultiplier = 0.5f;
+    [SerializeField] private double baseFactoryCost = 10;
+    [SerializeField] private double baseFactoryCostMultiplier = 1.15f;
+    [SerializeField] private double baseRelayCost = 10;
+    [SerializeField] private double baseRelayCostMultiplier = 1.15f;
+    [SerializeField] private double baseOrbitalDataCenterCost = 500;
+    [SerializeField] private double baseOrbitalDataCenterCostMultiplier = 1.1f;
+    [SerializeField] private double baseColonizationCost = 300;
+    [SerializeField] private double baseColonizationCostDistanceMultiplier = 0.5f;
     //Default costs
-    private float  defaultBaseRelayCost;
-    private float  defaultBaseRelayCostMultiplier;
-    private float defaultFactoryCost;
-    private float defaultFactoryCostMultiplier;
-    private float defaultOrbitalDataCenterCost;
-    private float defaultOrbitalDataCenterCostMultiplier;
+    private double  defaultBaseRelayCost;
+    private double  defaultBaseRelayCostMultiplier;
+    private double defaultFactoryCost;
+    private double defaultFactoryCostMultiplier;
+    private double defaultOrbitalDataCenterCost;
+    private double defaultOrbitalDataCenterCostMultiplier;
     
     [Header("Signal")]
-    [SerializeField] private float baseSignalStrength = 1;
-    [SerializeField] private float baseSignalStrengthMultiplier = 1; //Updated with tech tree
-    private float  defaultBaseSignalStrength;
-    private float  defaultBaseSignalStrengthMultiplier;
+    [SerializeField] private double baseSignalStrength = 1;
+    [SerializeField] private double baseSignalStrengthMultiplier = 1; //Updated with tech tree
+    private double  defaultBaseSignalStrength;
+    private double  defaultBaseSignalStrengthMultiplier;
     
     [Header("References")]
     public TechUpgradesManager  techUpgradesManager;
@@ -61,35 +61,35 @@ public class CalculationTables : MonoBehaviour
         defaultBaseSignalStrengthMultiplier = baseSignalStrengthMultiplier;
     }
     
-    public float GetBaseResourceGenerationValue(int factories)
+    public double GetBaseResourceGenerationValue(int factories)
     {
         return baseResourceGeneration * factories * baseResourceGenerationMultiplier;
     }
 
-    public float GetBaseFactoryCost(int factories)
+    public double GetBaseFactoryCost(int factories)
     {
         factories = factories > 0 ? factories : 1;
         return baseFactoryCost * baseFactoryCostMultiplier * factories;
     }
 
-    public float GetBaseRelayCost(int relays)
+    public double GetBaseRelayCost(int relays)
     {
         relays = relays > 0 ? relays : 1;
         return  baseRelayCost * relays * baseRelayCostMultiplier;
     }
 
-    public float GetOrbitalDataCenterCost(int obdcs)
+    public double GetOrbitalDataCenterCost(int obdcs)
     {
         obdcs =  obdcs > 0 ? obdcs : 1;
         return baseOrbitalDataCenterCost * obdcs * baseOrbitalDataCenterCostMultiplier;
     }
 
-    public float GetSignalStrength(Planet planet)
+    public double GetSignalStrength(Planet planet)
     {
         return planet.Relays * baseSignalStrength * baseSignalStrengthMultiplier;
     }
 
-    public float GetColonizationCost(Planet planet)
+    public double GetColonizationCost(Planet planet)
     {
         return baseColonizationCost;
     }

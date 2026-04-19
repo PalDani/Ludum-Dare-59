@@ -24,11 +24,12 @@ public class TechUpgradesManager : MonoBehaviour
     {
         if(activeUpgrades.Contains(upgrade) || !inactiveUpgrades.Contains(upgrade))
             return;
-        
+
+        SharedResourcesManager.Instance.RemoveResource(upgrade.UpgradeCost);
         activeUpgrades.Add(upgrade);
         inactiveUpgrades.Remove(upgrade);
         OnUpgradeActivated.Invoke(upgrade);
-        AlertUI.Instance.ShowAlert($"{name} has been upgraded from the tech tree.");
+        AlertUI.Instance.ShowAlert($"{upgrade.UpgradeName} has been upgraded from the tech tree.");
     }
     
 }

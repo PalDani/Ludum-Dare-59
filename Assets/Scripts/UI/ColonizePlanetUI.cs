@@ -31,12 +31,16 @@ public class ColonizePlanetUI : MonoBehaviour
         InitUI();
         
         uiRoot.SetActive(true);
+        CameraMovement.Instance.FocusOnTarget(planet.transform);
     }
 
     public void Hide()
     {
         planet = null;
         uiRoot.SetActive(false);
+        
+        if(CameraMovement.Instance !=  null)
+            CameraMovement.Instance.StopFocus();
     }
 
     private void InitUI()
@@ -49,7 +53,7 @@ public class ColonizePlanetUI : MonoBehaviour
         });
 
         colonizeButton.interactable = PlanetManager.Instance.CanBeColonized(planet);
-        colonizeButtonText.text = $"Colonize {CalculationTables.Instance.GetColonizationCost(planet)}";
+        colonizeButtonText.text = $"Discover {CalculationTables.Instance.GetColonizationCost(planet)}";
     }
     
     

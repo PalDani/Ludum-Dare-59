@@ -7,8 +7,9 @@ public class SignalManager : MonoBehaviour
 {
     public PlanetManager planetManager;
 
-    [SerializeField] private Dictionary<Planet, float> signals;
-    public Dictionary<Planet, float> Signals => signals;
+    [SerializeField] private Dictionary<Planet, double> signals;
+    public Dictionary<Planet, double> Signals => signals;
+    public List<OrbitalDataCenter> orbitalDataCenters = new();
     
     private List<Planet> planetsDiscovered = new();
 
@@ -57,6 +58,12 @@ public class SignalManager : MonoBehaviour
     {
         signals[planet] = planetManager.GetSignalStrength(planet);
         CheckForNewPlanetInSignalRange();
+    }
+
+    public void AddOrbitalDataCenter(OrbitalDataCenter orbitalDataCenter)
+    {
+        orbitalDataCenters.Add(orbitalDataCenter);
+        DataCenterSignalDisplay.Instance.RebuildLines();
     }
 
     private void CheckForNewPlanetInSignalRange()

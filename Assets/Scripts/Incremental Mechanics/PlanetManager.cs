@@ -13,6 +13,11 @@ public class PlanetManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private SharedResourcesManager  sharedResourcesManager;
     [SerializeField] private CalculationTables  calculationTables;
+    [SerializeField] private Transform starSystemRoot;
+    [Header("Prefabs")]
+    [SerializeField] private GameObject orbitalDataCenterPrefab;
+    public GameObject OrbitalDataCenterPrefab => orbitalDataCenterPrefab;
+    public Transform StarSystemRoot =>  starSystemRoot;
     
     private float _t = 0;
     
@@ -54,47 +59,48 @@ public class PlanetManager : MonoBehaviour
 
     private void GenerateResources(Planet planet)
     {
-        sharedResourcesManager.resources += calculationTables.GetBaseResourceGenerationValue(planet.Factories);
+        sharedResourcesManager.AddResource(calculationTables.GetBaseResourceGenerationValue(planet.Factories));
     }
 
     public bool CanBuildFactory(Planet planet)
     {
-        return sharedResourcesManager.resources >= GetRequiredResourcesToBuildFactory(planet);
+        return sharedResourcesManager.Resources >= GetRequiredResourcesToBuildFactory(planet);
     }
 
     public bool CanBuildRelay(Planet planet)
     {
-        return sharedResourcesManager.resources >= GetRequiredResourcesToBuildRelay(planet);
+        return sharedResourcesManager.Resources >= GetRequiredResourcesToBuildRelay(planet);
     }
     
     public bool CanBuildOribtalDataCenter(Planet planet)
     {
-        return sharedResourcesManager.resources >= GetRequiredResourcesToBuildRelay(planet);
+        return sharedResourcesManager.Resources >= GetRequiredResourcesToBuildRelay(planet);
     }
 
     public bool CanBeColonized(Planet planet)
     {
         return 
-            sharedResourcesManager.resources >= GetRequiredResourcesToColonize(planet) &&
+            sharedResourcesManager.Resources >= GetRequiredResourcesToColonize(planet) &&
             planet.IsPlanetInSignalRange();
     }
 
     public void BuildFactory(Planet planet)
     {
-        SharedResourcesManager.Instance.resources -= GetRequiredResourcesToBuildFactory(planet);
+        SharedResourcesManager.Instance.RemoveResource(GetRequiredResourcesToBuildFactory(planet));
         planet.BuildFactory();
     }
 
-    public float GetSignalStrength(Planet planet) => calculationTables.GetSignalStrength(planet);
+    public double GetSignalStrength(Planet planet) => calculationTables.GetSignalStrength(planet);
 
     public void BuildOrbitalDataCenter(Planet planet)
     {
-        
+        SharedResourcesManager.Instance.RemoveResource(GetRequiredResourcesToBuildOrbitalDataCenter(planet));
+        planet.BuildOrbitalDataCenter();
     }
 
     public void BuildRelay(Planet planet)
     {
-        SharedResourcesManager.Instance.resources -= GetRequiredResourcesToBuildRelay(planet);
+        SharedResourcesManager.Instance.RemoveResource(GetRequiredResourcesToBuildRelay(planet));
         planet.BuildRelay();
     }
 
@@ -103,22 +109,22 @@ public class PlanetManager : MonoBehaviour
         return Vector3.Distance(p1.transform.position, p2.transform.position);
     }
 
-    public float GetRequiredResourcesToColonize(Planet planet)
+    public double GetRequiredResourcesToColonize(Planet planet)
     {
         return calculationTables.GetColonizationCost(planet);
     }
 
-    public float GetRequiredResourcesToBuildFactory(Planet planet)
+    public double GetRequiredResourcesToBuildFactory(Planet planet)
     {
         return calculationTables.GetBaseFactoryCost(planet.Factories);
     }
 
-    public float GetRequiredResourcesToBuildRelay(Planet planet)
+    public double GetRequiredResourcesToBuildRelay(Planet planet)
     {
         return calculationTables.GetBaseRelayCost(planet.Relays);
     }
     
-    public float GetRequiredResourcesToBuildOrbitalDataCenter(Planet planet)
+    public double GetRequiredResourcesToBuildOrbitalDataCenter(Planet planet)
     {
         return calculationTables.GetOrbitalDataCenterCost(GetOrbitalDataCenterCount());
     }
