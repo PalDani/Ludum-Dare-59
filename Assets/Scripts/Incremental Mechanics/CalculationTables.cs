@@ -11,6 +11,8 @@ public class CalculationTables : MonoBehaviour
     private float defaultBaseResourceGenerationMultiplier;
 
     [Header("Costs")]
+    [SerializeField] private float baseFactoryCost = 10;
+    [SerializeField] private float baseFactoryCostMultiplier = 1.15f;
     [SerializeField] private float baseRelayCost = 10;
     [SerializeField] private float baseRelayCostMultiplier = 1.15f;
     private float  defaultBaseRelayCost;
@@ -22,8 +24,10 @@ public class CalculationTables : MonoBehaviour
     private float  defaultBaseSignalStrength;
     private float  defaultBaseSignalStrengthMultiplier;
     
+    [Header("References")]
+    public TechUpgradesManager  techUpgradesManager;
     
-    public static CalculationTables Instance;
+    public static CalculationTables Instance { get; private set; }
 
     private void Awake()
     {
@@ -33,7 +37,7 @@ public class CalculationTables : MonoBehaviour
 
     private void Start()
     {
-        TechUpgradesManager.Instance.OnUpgradeActivated.AddListener(RecalculateValues);
+        techUpgradesManager.OnUpgradeActivated.AddListener(RecalculateValues);
     }
 
     private void InitDefaultValues()
@@ -49,6 +53,12 @@ public class CalculationTables : MonoBehaviour
     public float GetBaseResourceGenerationValue(int factories)
     {
         return baseResourceGeneration * factories * baseResourceGenerationMultiplier;
+    }
+
+    public float GetBaseFactoryCost(int factories)
+    {
+        factories = factories > 0 ? factories : 1;
+        return baseFactoryCost * baseFactoryCostMultiplier * factories;
     }
 
     public float GetBaseRelayCost(int relays)

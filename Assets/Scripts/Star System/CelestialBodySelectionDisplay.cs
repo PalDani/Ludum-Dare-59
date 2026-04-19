@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class CelestialBodySelectionDisplay : MonoBehaviour
 {
+    [SerializeField] private MeshRenderer planetMeshRenderer;
     private Interactable interactable;
     public Material outlineMaterial;
-    public Material outlineMaterialReference;
+    [SerializeField] private Material outlineMaterialReference;
 
     private void Awake()
     {
@@ -19,8 +20,12 @@ public class CelestialBodySelectionDisplay : MonoBehaviour
 
     private void InitMaterial()
     {
-        var renderer = GetComponent<MeshRenderer>();
-        foreach (var mat in renderer.materials)
+        if (planetMeshRenderer == null)
+        {
+            Debug.LogError("No mesh renderer for planet!", gameObject);
+            return;
+        }
+        foreach (var mat in planetMeshRenderer.materials)
         {
             if (mat == outlineMaterial)
             {
@@ -30,10 +35,10 @@ public class CelestialBodySelectionDisplay : MonoBehaviour
 
         if (outlineMaterialReference == null)
         {
-            var tmp = renderer.materials.ToList();
+            var tmp = planetMeshRenderer.materials.ToList();
             tmp.Add(outlineMaterial);
-            renderer.materials = tmp.ToArray();
-            outlineMaterialReference = renderer.materials.Last();
+            planetMeshRenderer.materials = tmp.ToArray();
+            outlineMaterialReference = planetMeshRenderer.materials.Last();
         }
         SetOutlineState(false);
     }

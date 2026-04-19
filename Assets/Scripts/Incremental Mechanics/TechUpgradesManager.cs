@@ -13,7 +13,7 @@ public class TechUpgradesManager : MonoBehaviour
     public List<TechUpgrade> InactiveUpgrades => inactiveUpgrades;
     public UnityEvent<TechUpgrade> OnUpgradeActivated;
 
-    public static TechUpgradesManager Instance;
+    public static TechUpgradesManager Instance { get; private set; }
 
     private void Awake()
     {

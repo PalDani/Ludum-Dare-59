@@ -6,7 +6,7 @@ public class SharedResourcesManager : MonoBehaviour
 
     public float resources;
     
-    public static SharedResourcesManager Instance;
+    public static SharedResourcesManager Instance { get; private set; }
 
     private void Awake()
     {
