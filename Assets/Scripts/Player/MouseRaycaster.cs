@@ -5,7 +5,9 @@ using UnityEngine.InputSystem;
 
 public class MouseRaycaster : MonoBehaviour
 {
-    public InputActionReference clickAction;
+    public InputActionReference selectAction;
+    public InputActionReference focusAction;
+    public InputActionReference exitFocusAction;
     public LayerMask interactableLayer;
 
     public Interactable currentTarget;
@@ -26,13 +28,21 @@ public class MouseRaycaster : MonoBehaviour
 
     private void OnEnable()
     {
-        clickAction.action.Enable();
-        clickAction.action.performed += Clicked;
+        selectAction.action.Enable();
+        selectAction.action.performed += Clicked;
+        focusAction.action.Enable();
+        focusAction.action.performed += Focus;
+        
+        exitFocusAction.action.Enable();
+        exitFocusAction.action.performed += FocusExit;
     }
+    
 
     private void OnDisable()
     {
-        clickAction.action.Disable();
+        selectAction.action.Disable();
+        focusAction.action.Disable();
+        exitFocusAction.action.Disable();
     }
 
     // Update is called once per frame
@@ -84,6 +94,21 @@ public class MouseRaycaster : MonoBehaviour
         
         currentTarget.Interact();
         AudioEffectPlayer.Instance.PlayClickObject();
+    }
+    
+    private void Focus(InputAction.CallbackContext obj)
+    {
+        if(currentTarget == null)
+        {
+            return;
+        }
+        
+        CameraMovement.Instance.FocusOnTarget(currentTarget.transform);
+    }
+    
+    private void FocusExit(InputAction.CallbackContext obj)
+    {
+        CameraMovement.Instance.StopFocus();
     }
     
 }

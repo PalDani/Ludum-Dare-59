@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class Planet : MonoBehaviour
@@ -12,6 +13,7 @@ public class Planet : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Interactable interactable;
+    [SerializeField] private TMP_Text planetLabel;
     public OrbitalDataCenter dataCenter;
     public GameObject signalStrengthDisplay;
     [SerializeField] private OrbitLineDisplay orbitLineDisplay;
@@ -25,6 +27,7 @@ public class Planet : MonoBehaviour
     private void Awake()
     {
         tag = "CelestialBody";
+        planetLabel.text =  planetName;
         
         if(interactable == null)
             interactable = GetComponent<Interactable>();

@@ -73,7 +73,7 @@ public class SignalManager : MonoBehaviour
             if (signalEntry.Key.IsPlanetInSignalRange() && !planetsDiscovered.Contains(signalEntry.Key))
             {
                 planetsDiscovered.Add(signalEntry.Key);
-                Debug.Log($"{signalEntry.Key.planetName} can now be colonized.");
+                Debug.Log($"{signalEntry.Key.planetName} can now be discovered.");
                 AlertUI.Instance.ShowAlert($"{signalEntry.Key.planetName} can now be colonized.");
             }
         }
