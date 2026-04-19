@@ -20,7 +20,6 @@ public class TechUpgrade : ScriptableObject
         ResourceGenerationMultiplier,
         FactoryCostMultiplier,
         RelayCostMultiplier,
-        OrbitalDataCenterMultiplier,
         SignalStrengthMultiplier,
     }
 

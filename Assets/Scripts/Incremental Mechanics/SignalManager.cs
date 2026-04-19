@@ -1,14 +1,16 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SignalManager : MonoBehaviour
 {
     public PlanetManager planetManager;
+    public TechUpgradesManager techUpgradesManager;
 
-    [SerializeField] private Dictionary<Planet, double> signals;
-    public Dictionary<Planet, double> Signals => signals;
+    [SerializeField] private List<SignalEntry> signals = new();
+    public List<SignalEntry> Signals => signals;
     public List<OrbitalDataCenter> orbitalDataCenters = new();
     
     private List<Planet> planetsDiscovered = new();
@@ -21,6 +23,7 @@ public class SignalManager : MonoBehaviour
     {
         CollectPlanets();
         Instance = this;
+        techUpgradesManager.OnUpgradeActivated.AddListener((x) => UpdateSignals());
     }
 
     private void Update()
@@ -40,7 +43,11 @@ public class SignalManager : MonoBehaviour
         signals = new();
         foreach (var planet in planetManager.Planets)
         {
-            signals.Add(planet, planetManager.GetSignalStrength(planet));
+            signals.Add(new SignalEntry()
+            {
+                planet  = planet,
+                signalStrength = planetManager.GetSignalStrength(planet)
+            });
             if(planet.IsStarterPlanet)
                 planetsDiscovered.Add(planet);
         }
@@ -50,13 +57,14 @@ public class SignalManager : MonoBehaviour
     {
         foreach (var signalEntry in signals)
         {
-            signals[signalEntry.Key] = planetManager.GetSignalStrength(signalEntry.Key);
+            UpdateSignalForPlanet(signalEntry.planet);
         }
     }
 
     public void UpdateSignalForPlanet(Planet planet)
     {
-        signals[planet] = planetManager.GetSignalStrength(planet);
+        signals.First(x => x.planet == planet).signalStrength = planetManager.GetSignalStrength(planet);
+        planet.UpdateSignalStrengthDisplay();
         CheckForNewPlanetInSignalRange();
     }
 
@@ -70,12 +78,18 @@ public class SignalManager : MonoBehaviour
     {
         foreach (var signalEntry in signals)
         {
-            if (signalEntry.Key.IsPlanetInSignalRange() && !planetsDiscovered.Contains(signalEntry.Key))
+            if (signalEntry.planet.IsPlanetInSignalRange() && !planetsDiscovered.Contains(signalEntry.planet))
             {
-                planetsDiscovered.Add(signalEntry.Key);
-                Debug.Log($"{signalEntry.Key.planetName} can now be discovered.");
-                AlertUI.Instance.ShowAlert($"{signalEntry.Key.planetName} can now be colonized.");
+                planetsDiscovered.Add(signalEntry.planet);
+                AlertUI.Instance.ShowAlert($"{signalEntry.planet.planetName} can now be discovered.");
             }
         }
+    }
+
+    [Serializable]
+    public class SignalEntry
+    {
+        public Planet planet;
+        public double signalStrength;
     }
 }

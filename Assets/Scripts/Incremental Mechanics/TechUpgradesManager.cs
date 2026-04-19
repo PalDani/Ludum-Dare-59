@@ -28,7 +28,7 @@ public class TechUpgradesManager : MonoBehaviour
         SharedResourcesManager.Instance.RemoveResource(upgrade.UpgradeCost);
         activeUpgrades.Add(upgrade);
         inactiveUpgrades.Remove(upgrade);
-        OnUpgradeActivated.Invoke(upgrade);
+        OnUpgradeActivated?.Invoke(upgrade);
         AlertUI.Instance.ShowAlert($"{upgrade.UpgradeName} has been upgraded from the tech tree.");
     }
     

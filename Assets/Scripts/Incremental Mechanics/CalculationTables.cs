@@ -119,11 +119,8 @@ public class CalculationTables : MonoBehaviour
                 case TechUpgrade.Upgrade_Type.RelayCostMultiplier:
                     baseRelayCost += upgrade.UpgradeValue;
                     break;
-                case TechUpgrade.Upgrade_Type.OrbitalDataCenterMultiplier:
-                    defaultOrbitalDataCenterCost += upgrade.UpgradeValue;
-                    break;
                 case TechUpgrade.Upgrade_Type.SignalStrengthMultiplier:
-                    baseSignalStrength += upgrade.UpgradeValue;
+                    baseSignalStrengthMultiplier += upgrade.UpgradeValue;
                     break;
                 default:
                     Debug.LogError("Unknown upgrade type!");

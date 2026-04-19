@@ -49,6 +49,7 @@ public class TechUpgradeUIElement : MonoBehaviour, IPointerEnterHandler, IPointe
         bought = true;
         upgradeButton.interactable = false;
         upgradeButton.onClick.RemoveAllListeners();
+        TechTreeUI.Instance.RefreshUI();
     }
 
     public void OnPointerEnter(PointerEventData eventData)

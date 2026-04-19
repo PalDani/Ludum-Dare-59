@@ -14,10 +14,13 @@ public class TechTreeUI : MonoBehaviour
     [SerializeField] private List<TechUpgradeUIElement> upgradeUIElements;
     private float _t = 0;
     
+    public static TechTreeUI Instance { get; private set; }
+    
     public bool IsOpen => uiRoot.activeSelf;
     
     private void Awake()
     {
+        Instance = this;
         CollectUpgrades();
         Hide();
     }
@@ -44,6 +47,7 @@ public class TechTreeUI : MonoBehaviour
             if (child.TryGetComponent<TechUpgradeUIElement>(out var tue))
             {
                 techUpgradesManager.InactiveUpgrades.Add(tue.TechUpgrade);
+                upgradeUIElements.Add(tue);
             }
         }
     }

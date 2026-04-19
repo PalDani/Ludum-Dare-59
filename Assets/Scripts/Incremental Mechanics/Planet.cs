@@ -83,7 +83,7 @@ public class Planet : MonoBehaviour
         dataCenter.Init(this);
     }
     
-    private void UpdateSignalStrengthDisplay()
+    public void UpdateSignalStrengthDisplay()
     {
         float signalRadius = (float) Math.Round(CalculationTables.Instance.GetSignalStrength(this));
         float targetWorldDiameter = signalRadius * 2f;
@@ -106,12 +106,12 @@ public class Planet : MonoBehaviour
         
         foreach (var signal in SignalManager.Instance.Signals)
         {
-            if (signal.Value <= 0f)
+            if (signal.signalStrength <= 0f)
                 continue;
 
-            float distance = PlanetManager.Instance.GetDistanceBetweenPlanets(this, signal.Key);
+            float distance = PlanetManager.Instance.GetDistanceBetweenPlanets(this, signal.planet);
 
-            if (distance <= signal.Value)
+            if (distance <= signal.signalStrength)
                 return true;
         }
 
