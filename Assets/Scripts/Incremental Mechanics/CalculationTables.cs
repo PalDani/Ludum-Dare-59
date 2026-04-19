@@ -15,8 +15,17 @@ public class CalculationTables : MonoBehaviour
     [SerializeField] private float baseFactoryCostMultiplier = 1.15f;
     [SerializeField] private float baseRelayCost = 10;
     [SerializeField] private float baseRelayCostMultiplier = 1.15f;
+    [SerializeField] private float baseOrbitalDataCenterCost = 500;
+    [SerializeField] private float baseOrbitalDataCenterCostMultiplier = 1.1f;
+    [SerializeField] private float baseColonizationCost = 300;
+    [SerializeField] private float baseColonizationCostDistanceMultiplier = 0.5f;
+    //Default costs
     private float  defaultBaseRelayCost;
     private float  defaultBaseRelayCostMultiplier;
+    private float defaultFactoryCost;
+    private float defaultFactoryCostMultiplier;
+    private float defaultOrbitalDataCenterCost;
+    private float defaultOrbitalDataCenterCostMultiplier;
     
     [Header("Signal")]
     [SerializeField] private float baseSignalStrength = 1;
@@ -44,6 +53,8 @@ public class CalculationTables : MonoBehaviour
     {
         defaultBaseResourceGeneration = baseResourceGeneration;
         defaultBaseResourceGenerationMultiplier = baseResourceGenerationMultiplier;
+        defaultFactoryCost = baseFactoryCost;
+        defaultFactoryCostMultiplier = baseFactoryCostMultiplier;
         defaultBaseRelayCost = baseRelayCost;
         defaultBaseRelayCostMultiplier = baseRelayCostMultiplier;
         defaultBaseSignalStrength = baseSignalStrength;
@@ -63,17 +74,34 @@ public class CalculationTables : MonoBehaviour
 
     public float GetBaseRelayCost(int relays)
     {
+        relays = relays > 0 ? relays : 1;
         return  baseRelayCost * relays * baseRelayCostMultiplier;
+    }
+
+    public float GetOrbitalDataCenterCost(int obdcs)
+    {
+        obdcs =  obdcs > 0 ? obdcs : 1;
+        return baseOrbitalDataCenterCost * obdcs * baseOrbitalDataCenterCostMultiplier;
+    }
+
+    public float GetSignalStrength(Planet planet)
+    {
+        return planet.Relays * baseSignalStrength * baseSignalStrengthMultiplier;
+    }
+
+    public float GetColonizationCost(Planet planet)
+    {
+        return baseColonizationCost;
     }
 
     public void RecalculateValues(TechUpgrade activatedUpgrade)
     {
         baseResourceGeneration =  defaultBaseResourceGeneration;
         baseResourceGenerationMultiplier =  defaultBaseResourceGenerationMultiplier;
-        defaultBaseRelayCost = baseRelayCost;
-        defaultBaseRelayCostMultiplier = baseRelayCostMultiplier;
-        defaultBaseSignalStrength = baseSignalStrength;
-        defaultBaseSignalStrengthMultiplier = baseSignalStrengthMultiplier;
+        baseRelayCost = defaultBaseRelayCost;
+        baseRelayCostMultiplier = defaultBaseRelayCostMultiplier;
+        baseSignalStrength = defaultBaseSignalStrength;
+        baseSignalStrengthMultiplier = defaultBaseSignalStrengthMultiplier;
         
         foreach (var upgrade in TechUpgradesManager.Instance.ActiveUpgrades)
         {
@@ -85,8 +113,14 @@ public class CalculationTables : MonoBehaviour
                 case TechUpgrade.Upgrade_Type.ResourceGenerationMultiplier:
                     baseResourceGenerationMultiplier += upgrade.UpgradeValue;
                     break;
+                case TechUpgrade.Upgrade_Type.FactoryCostMultiplier:
+                    baseFactoryCostMultiplier += upgrade.UpgradeValue;
+                    break;
                 case TechUpgrade.Upgrade_Type.RelayCostMultiplier:
                     baseRelayCost += upgrade.UpgradeValue;
+                    break;
+                case TechUpgrade.Upgrade_Type.OrbitalDataCenterMultiplier:
+                    defaultOrbitalDataCenterCost += upgrade.UpgradeValue;
                     break;
                 case TechUpgrade.Upgrade_Type.SignalStrengthMultiplier:
                     baseSignalStrength += upgrade.UpgradeValue;

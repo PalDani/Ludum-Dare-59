@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class PlanetManager : MonoBehaviour
 {
-    public List<Planet> planets = new();
+    [SerializeField] private List<Planet> planets = new();
+    public List<Planet> Planets => planets;
     public float simulationTime = 1;
     
     [Header("References")]
@@ -14,8 +15,13 @@ public class PlanetManager : MonoBehaviour
     [SerializeField] private CalculationTables  calculationTables;
     
     private float _t = 0;
+    
+    public static  PlanetManager Instance { get;  private set; }
+    
     private void Awake()
     {
+        Instance = this;
+        
         if(planets.Count == 0)
             CollectPlanets();
     }
@@ -48,17 +54,53 @@ public class PlanetManager : MonoBehaviour
 
     private void GenerateResources(Planet planet)
     {
-        sharedResourcesManager.resources += calculationTables.GetBaseResourceGenerationValue(planet.factories);
+        sharedResourcesManager.resources += calculationTables.GetBaseResourceGenerationValue(planet.Factories);
     }
 
     public bool CanBuildFactory(Planet planet)
     {
-        return sharedResourcesManager.resources >= calculationTables.GetBaseFactoryCost(planet.factories);
+        return sharedResourcesManager.resources >= GetRequiredResourcesToBuildFactory(planet);
+    }
+
+    public bool CanBuildRelay(Planet planet)
+    {
+        return sharedResourcesManager.resources >= GetRequiredResourcesToBuildRelay(planet);
+    }
+    
+    public bool CanBuildOribtalDataCenter(Planet planet)
+    {
+        return sharedResourcesManager.resources >= GetRequiredResourcesToBuildRelay(planet);
+    }
+
+    public bool CanBeColonized(Planet planet)
+    {
+        return 
+            sharedResourcesManager.resources >= GetRequiredResourcesToColonize(planet) &&
+            planet.IsPlanetInSignalRange();
     }
 
     public void BuildFactory(Planet planet)
     {
-        planet.factories++;
+        SharedResourcesManager.Instance.resources -= GetRequiredResourcesToBuildFactory(planet);
+        planet.BuildFactory();
+    }
+
+    public float GetSignalStrength(Planet planet) => calculationTables.GetSignalStrength(planet);
+
+    public void BuildOrbitalDataCenter(Planet planet)
+    {
+        
+    }
+
+    public void BuildRelay(Planet planet)
+    {
+        SharedResourcesManager.Instance.resources -= GetRequiredResourcesToBuildRelay(planet);
+        planet.BuildRelay();
+    }
+
+    public float GetDistanceBetweenPlanets(Planet p1, Planet p2)
+    {
+        return Vector3.Distance(p1.transform.position, p2.transform.position);
     }
 
     /*public float CalculateSignalDistance(PlanetData planet)
@@ -66,20 +108,35 @@ public class PlanetManager : MonoBehaviour
         return planet.relays * CalculationTables.Instance.baseSignalStrength * CalculationTables.Instance.baseSignalStrengthMultiplier;
     }*/
 
+    public float GetRequiredResourcesToColonize(Planet planet)
+    {
+        return calculationTables.GetColonizationCost(planet);
+    }
+
     public float GetRequiredResourcesToBuildFactory(Planet planet)
     {
-        return planet.factories > 0 ? planet.factories : 1 * calculationTables.GetBaseFactoryCost(planet.factories);
+        return calculationTables.GetBaseFactoryCost(planet.Factories);
+    }
+
+    public float GetRequiredResourcesToBuildRelay(Planet planet)
+    {
+        return calculationTables.GetBaseRelayCost(planet.Relays);
     }
     
-    public float GetRequiredResourcesToBuildFactories(Planet planet, int amount)
+    public float GetRequiredResourcesToBuildOrbitalDataCenter(Planet planet)
     {
-        float cost = 0;
-        for (int i = 0; i < amount; i++)
-        {
-            cost +=  calculationTables.GetBaseFactoryCost(planet.factories + i);
-        }
+        return calculationTables.GetOrbitalDataCenterCost(GetOrbitalDataCenterCount());
+    }
 
-        return cost;
+    public int GetOrbitalDataCenterCount()
+    {
+        int result = 0;
+        foreach (var planet in planets)
+        {
+            if (planet.HasDataCenter())
+                result++;
+        }
+        return result;
     }
     
 }
