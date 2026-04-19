@@ -17,7 +17,7 @@ public class AudioEffectPlayer : MonoBehaviour
         Instance = this;
     }
     
-    public void PlayClickEmpty()
+    public void PlayClickSimple()
     {
         if (clickEmpty != null)
             clickEmpty.Play();

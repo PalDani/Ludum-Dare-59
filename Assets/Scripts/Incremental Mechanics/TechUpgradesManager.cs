@@ -20,18 +20,15 @@ public class TechUpgradesManager : MonoBehaviour
         Instance = this;
     }
 
-    public void ActivateUpgrade(string name)
+    public void ActivateUpgrade(TechUpgrade upgrade)
     {
-        foreach (var upgrade in inactiveUpgrades)
-        {
-            if (upgrade.name.Equals(name))
-            {
-                activeUpgrades.Add(upgrade);
-                activeUpgrades.Remove(upgrade);
-                return;
-            }
-        }
-        Debug.LogError($"No upgrade found with the name: {name}");
+        if(activeUpgrades.Contains(upgrade) || !inactiveUpgrades.Contains(upgrade))
+            return;
+        
+        activeUpgrades.Add(upgrade);
+        inactiveUpgrades.Remove(upgrade);
+        OnUpgradeActivated.Invoke(upgrade);
+        AlertUI.Instance.ShowAlert($"{name} has been upgraded from the tech tree.");
     }
     
 }

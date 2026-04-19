@@ -54,7 +54,8 @@ public class AlertUI : MonoBehaviour
         while (messageQueue.Count > 0)
         {
             isShowingMessage = true;
-
+            AudioEffectPlayer.Instance.PlayAlert();
+            
             string message = messageQueue.Dequeue();
             messageText.text = message;
 

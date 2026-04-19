@@ -19,7 +19,7 @@ public class UIButtonSound : MonoBehaviour, IPointerClickHandler
             return;
 
         if (button.interactable)
-            AudioEffectPlayer.Instance.PlayButtonSuccess();
+            AudioEffectPlayer.Instance.PlayClickSimple();
         else
             AudioEffectPlayer.Instance.PlayButtonDenied();
     }

@@ -18,6 +18,7 @@ public class Planet : MonoBehaviour
     public int Factories => factories;
     public int Relays => relays;
     public bool Colonized => colonized;
+    public bool IsStarterPlanet => starterPlanet;
 
     private void Awake()
     {

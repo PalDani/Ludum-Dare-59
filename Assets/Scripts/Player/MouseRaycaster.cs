@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class MouseRaycaster : MonoBehaviour
@@ -78,11 +79,11 @@ public class MouseRaycaster : MonoBehaviour
         
         if(currentTarget == null)
         {
-            AudioEffectPlayer.Instance.PlayClickEmpty();
             return;
         }
         
         currentTarget.Interact();
         AudioEffectPlayer.Instance.PlayClickObject();
     }
+    
 }

@@ -48,7 +48,7 @@ public class CameraMovement : MonoBehaviour
         // WASD movement on horizontal plane
         Vector2 moveInput = moveAction.action.ReadValue<Vector2>();
         Vector3 moveDirection = new Vector3(moveInput.x, 0f, moveInput.y);
-        targetPosition += moveDirection * moveSpeed * Time.deltaTime;
+        targetPosition += moveDirection * moveSpeed * Time.unscaledDeltaTime;
 
         // Zoom from scroll wheel / Vector2 action
         if (zoomAction != null)
@@ -56,7 +56,7 @@ public class CameraMovement : MonoBehaviour
             Vector2 zoomInput = zoomAction.action.ReadValue<Vector2>();
             float zoomValue = zoomInput.y;
 
-            Vector3 zoomDelta = transform.forward * zoomValue * zoomSpeed * Time.deltaTime;
+            Vector3 zoomDelta = transform.forward * zoomValue * zoomSpeed * Time.unscaledDeltaTime;
             Vector3 candidate = targetPosition + zoomDelta;
 
             if (candidate.y >= minY && candidate.y <= maxY)

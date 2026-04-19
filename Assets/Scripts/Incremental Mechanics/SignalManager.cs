@@ -13,11 +13,25 @@ public class SignalManager : MonoBehaviour
     private List<Planet> planetsDiscovered = new();
 
     public static SignalManager Instance { get; private set; }
+
+    private float _t;
     
     private void Awake()
     {
         CollectPlanets();
         Instance = this;
+    }
+
+    private void Update()
+    {
+        if (_t < 2)
+        {
+            _t += Time.deltaTime;
+            return;
+        }
+
+        CheckForNewPlanetInSignalRange();
+        _t = 0;
     }
 
     private void CollectPlanets()
@@ -26,6 +40,8 @@ public class SignalManager : MonoBehaviour
         foreach (var planet in planetManager.Planets)
         {
             signals.Add(planet, planetManager.GetSignalStrength(planet));
+            if(planet.IsStarterPlanet)
+                planetsDiscovered.Add(planet);
         }
     }
 

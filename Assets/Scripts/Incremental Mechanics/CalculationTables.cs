@@ -130,5 +130,7 @@ public class CalculationTables : MonoBehaviour
                     break;
             }
         }
+        
+        Debug.Log("Recalculated values");
     }
 }
